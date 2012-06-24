@@ -110,7 +110,7 @@ If any of this is new or confusing information please review Week 2, or simply t
 
 Homework: You should have at least one user and one product in your database at this point and time, if you don't please start over from the beginning. You will now run a script that will generate many fake users and many fake products, the technical term for this is "seeding" the database with fake data. We are using a gem called 'ffaker' but you don't need to know that. In the terminal (not the rails console) run this command:
 
-    $ ruby lib/fake_data.rb
+    $ rake fake:data
 
 If you got no output at all, check you are in the rails directory by running `ls`
 
@@ -472,11 +472,195 @@ Here we are telling our app that the path `/products/new` should map to our prod
 
 Now that we've got our Model in place, our Controller, and our Routes for this view file (M_Cr) we need to finish our view before our (MVCr) for this action is complete. Open up `app/views/products/new.html.erb` here we will add a form where a visitor to our website can add a product.
 
-In the last homework we added a simple form, we will do the same thing here.
+In the last homework we added a simple form, we will do the same thing here, when a user submits the form the will be adding data to our database, we want the form to use a POST action. We will want to include the name of our product as well as a price. First we will start off by adding the form tags
+
+    <form method='post' action='/products' >
+
+    </form>
+
+This tells the browser that when we submit this form it will submit to the `/products` path using a method of post. Remember we can re-use the /products path that we used for index, since this is a POST action and index uses a GET. (Routes = URL + HTTP Method). Next we want to add a text field:
+
+    <form method='post' action='/products' >
+      <input name="product[name]" size="30" type="text">
+    </form>
+
+Here the type of the input field is "text" and it will be 30 characters wide. When we submit this form we can find the result of this field in the `product[name]`, Rails will translate this to `params[:product][:name]` for us for ease of use. Refresh the page.
+
+Add a label above the text field
+
+    <form method='post' action='/products' >
+      <label>Name</label><br>
+      <input name="product[name]" size="30" type="text">
+    </form>
+
+Great now add a submit button:
+
+    <form method='post' action='/products' >
+      <label>Name</label><br>
+      <input name="product[name]" size="30" type="text">
+
+      <input type="submit" value="Create Product">
+    </form>
+
+Here we are adding an input element with type='submit' which indicates it will be the submit button. We can control the text in the button by change the text inside of it's value. For now it isn't important to memorize the syntax of this html just be able to read it and modify it.
+
+Lets add our price and then test out the form:
+
+
+    <form method='post' action='/products' >
+      <label>Name</label><br>
+      <input name="product[name]" size="30" type="text">
+
+      <br />
+      <label>Price</label><br>
+      <input name="product[price]" type="number">
+
+      <br />
+      <input type="submit" value="Create Product">
+    </form>
+
+
+Again we are storing the price inside of the product hash (in rails terms) so we can get to it by using `params[:product][:price]` later. Instead of a text type we are designating this as a number field.
 
 
 
+We've got everything we need to build a product (minus a user which is out of scope for this example). Fill out the form and hit "Create Product" and...
 
 
+We get another routing error. We only implemented the view for the form, but didn't write any of the logic for persisting (storing) the data to the database. Lets do that now.
+
+Open up `config/routes.rb` and add this line:
+
+
+      post '/products' => 'products#create'
+
+You will then need to make a new view `create.html.erb` in the folder `app/views/products/` (hopefully, you're noticing a trend), the full path will be `app/views/products/create.html.erb`. Open this file and add this to it:
+
+
+    <h2>Create View</h2>
+
+    <%= params.inspect %>
+
+
+Refresh the page, you will be prompted if you are sure. This is a safety feature due to the browser recognizing the POST action. Most POST actions such as ordering an item off of amazon or ebay are intended to happen only once. Refreshing the request could lead to unwanted duplicate orders. For now we haven't written the logic to persist to the database, so click okay.
+
+If you accidentally close this page just go back to `/products/new` and re-submit the form.
+
+You should see something like this:
+
+    Create View
+
+    {"product"=>{"name"=>"bird house", "price"=>"999"}, "controller"=>"products", "action"=>"create"}
+
+So here we have all the data we need to create our product. Remember in the console we can run:
+
+    > Product.create(:name => "bird house", :price => 999)
+
+To create a product. Since params is a hash we can change our view to this
+
+    <h2>Create View</h2>
+
+    <%= params[:product].inspect %>
+
+Now refresh the page, you should see something like this:
+
+    {"name"=>"bird house", "price"=>"999"}
+
+This looks dangerously close to what we needed to pass to `Product.create` in order to actually save our info to the database. Lets try it out. In the bottom of your view add this line:
+
+    <%= Product.create(params[:product]).inspect %>
+
+Refresh the page, now you should see something like this
+
+    #<Product id: 225, user_id: nil, name: "bird house", price: 999, created_at: "2012-06-23 22:15:09", updated_at: "2012-06-23 22:15:09">
+
+If our product has an id, that means it saved. We now have that product in our database. To prove it you can open a `$ rails console` and run this (replacing your id):
+
+    > Product.where(:id => 225).first
+    > #<Product id: 225, user_id: nil, ... >
+
+Thats pretty cool, we just built a way to insert data into our database from a website, it might not be pretty but it works!!
+
+Refresh the page again, and the product id should be incremented:
+
+    #<Product id: 226, user_id: nil, name: "bird house", price: 999, created_at: "2012-06-23 22:16:48", updated_at: "2012-06-23 22:16:48">
+
+But that doesn't seem right now we have two products with duplicate names. Lets tell Rails that shouldn't happen. We'll tell rails to validate the uniqueness of the name field on products. Open your product model
+`app/models/product.rb` and add this code in:
+
+    validates :name, :uniqueness => true
+
+Now refresh the page and the product id is gone! The duplicate product wasn't saved.
+
+    <Product id: nil, user_id: nil, name: "bird house", price: 999, created_at: nil, updated_at: nil>
+
+To understand why it isn't saving lets change our view code a bit, first replace this line:
+
+    <%= Product.create(params[:product]).inspect %>
+
+With this:
+
+    <% product = Product.create(params[:product]) %>
+    <%= product.inspect  %>
+
+Refresh the page, and you should see the exact same thing. Now add this to the bottom of your view
+
+    <br />
+    <%= product.errors.inspect %>
+
+You should see an output that looks similar to this:
+
+    #<ActiveModel::Errors:0x007fdc62bb1b38 @base=#<Product id: nil, user_id: nil,  name: "bird house",
+         price: 999, created_at: nil, updated_at: nil>,
+         @messages={:name=>["has already been taken"]}>
+
+
+Since we told rails that all valid products have a unique name, and rails will only save valid products, this error prevented the product from getting saved. The message tells us why `:name=>["has already been taken"]`, the name has already been taken.
+
+Since this is a common occurrence we will need to check for this type of a thing in our code.
+
+Rather than use the `create` command in our code we can make a new object and then run save on it (create does both at the same time). Lets remove this line:
+
+    <% product = Product.create(params[:product]) %>
+
+and replace it with this
+
+    <% product = Product.new(params[:product]) %>
+    <%= product.save %>
+
+Which essentially does the same thing, but the out put of `product.save` is a boolean (true or false) we can use this to show different message to our user if it saves or not.
+
+Add this to your view:
+
+    <% if product.save %>
+      <h2> Congrats You Created a New Product</h2>
+      Your product looks like <%= product.inspect %>
+    <% else %>
+      <h2>Your product was not saved!! </h2>
+      <%= product.errors.full_messages %>
+      Please go back in your browser and fix the problem
+    <% end %>
+
+Refresh the page again you should see
+
+     Your product was not saved!!
+     ["Name has already been taken"]
+     Please go back in your browser and fix the problem
+
+Thats much more useful to our user.
+
+
+Homework:
+
+Commit results to git & smile
+
+
+## Done
+
+Congrats, you're done, you've come pretty far since last week. Last week you were barely scratching the surface of generating html with ruby, and now you've completely written half of a CRUD server (for products). Think about that, you took data from a database and brought it to life in the browser. You then turned around and figured out a way to send data from a web form back to your database. That's pretty amazing. We also didn't use much Rails magic, for our models we used vanilla ActiveRecord Ruby objects, for our views we used (mostly) vanilla Ruby ERB. We did use this special Routes thing, and this special controller thing, but not very much.
+
+Now that you understand the basics of sending and retrieving data from a database, next week we can start to use some more rails practices to clean up your code and make life a little easier for yourself. If you were curious and decided to poke around in the views and controller for User, you might be a little surprised by how different it is, don't worry most of that is organization and is quite a bit harder to understand without the fundamentals we've just experienced.
+
+The most important thing to take away from this MVCr exercise is that you can (and should) build everything incrementally. It's okay to not understand the bigger picture until after you're done. Taking many small steps and checking yourself after each is the best way to stay on course, no matter what the activity is.
 
 
