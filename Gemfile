@@ -9,6 +9,9 @@ gem 'sqlite3'
 
 gem 'ffaker'
 
+
+gem 'thin'
+
 gem 'quiet_assets', :group => :development
 
 
