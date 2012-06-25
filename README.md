@@ -15,8 +15,9 @@ Fork this project and then clone it to your local machine.
 
 ## Install
 
-Once on your local machine you will need to navigate to the project directory and run
+Once on your local machine you will need to navigate to the project directory and run:
 
+    $ bundle install
     $ rake db:create
     $ rake db:migrate
 
