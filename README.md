@@ -2,6 +2,9 @@
 
 ## What?
 
+Last week we built pure ruby views without touching the database. This week we will pull together ruby generated views and database stored content using rails. We will then create new views and routes to add data to our database with web forms. Submission is the same as last week, and directions are below.
+
+Good luck, have fun!!
 
 Note directions that start with `$` indicate they are on the command line, you should not copy the `$`.
 
