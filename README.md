@@ -10,14 +10,25 @@ Note directions that start with `$` indicate they are on the command line, you s
 
 ## Fork & Clone
 
+Go to the directory where you like to store your rails code.
+
 Fork this project and then clone it to your local machine.
 
+
+## Ruby
+
+You will need ruby 1.9 or higher for this example. You can check your version of Ruby by running:
+
+    $ ruby -v
 
 ## Install
 
 Once on your local machine you will need to navigate to the project directory and run:
 
     $ bundle install
+
+This might take awhile, afterwards  you will need to run:
+
     $ rake db:create
     $ rake db:migrate
 
@@ -36,7 +47,7 @@ This means that if you visit [localhost:3000/products](http://localhost:3000/pro
 
 ## 1) Populating Data
 
-If you didn't already create a user by visiting [localhost:3000/users/new](http://localhost:3000/users/new) filling out the form and hitting submit.
+If you didn't already, create a user by visiting [localhost:3000/users/new](http://localhost:3000/users/new) filling out the form and hitting submit.
 
 In a new terminal run the rails console:
 
@@ -58,16 +69,22 @@ From here we can use our rails code and populate our database and perform querie
 Now that you've got a user in your database lets make sure we can find them again with SQL. Take the name entered above (in this case `richard`)  and search the database for it:
 
 
+    > User.first.name
+    => 'richard'
     > User.where(:name => 'richard')
     => [#<User id: 1, name: "richard", ... >]
 
 Great that found ALL of the users named 'richard', if you got an empty array try again, make sure to use the name you used. If we wanted to find only one richard, we could limit the query and pull out the first user like this:
 
+    > User.first.name
+    => 'richard'
     > User.where(:name => 'richard').first
     => #<User id: 1, name: "richard", ... >
 
 Cool, now we can store that user to a variable to use later:
 
+    > User.first.name
+    => 'richard'
     > rich = User.where(:name => 'richard').first
     > rich.name
     => "richard"
@@ -82,7 +99,7 @@ If you look in the user model `apps/models/user.rb` you will see that users have
 You will see that each product contains a foreign key called `user_id` lets add a product to our user. Using the existing variable from previously we can see all of our user's products:
 
     > rich = User.where(:name => 'richard').first
-    > puts rich.products
+    > rich.products
     => []
 
 There aren't any yet, so lets make one
