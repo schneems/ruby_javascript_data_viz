@@ -129,7 +129,8 @@ This is possible because of our primary and foreign key relationship and because
 If any of this is new or confusing information please review Week 2, or simply try going over this example, and calling `to_sql` on queries to better understand relationships.
 
 
-Homework: You should have at least one user and one product in your database at this point and time, if you don't please start over from the beginning. You will now run a script that will generate many fake users and many fake products, the technical term for this is "seeding" the database with fake data. We are using a gem called 'ffaker' but you don't need to know that. In the terminal (not the rails console) run this command:
+#### Homework:
+ You should have at least one user and one product in your database at this point and time, if you don't please start over from the beginning. You will now run a script that will generate many fake users and many fake products, the technical term for this is "seeding" the database with fake data. We are using a gem called 'ffaker' but you don't need to know that. In the terminal (not the rails console) run this command:
 
     $ rake fake:data
 
@@ -144,9 +145,9 @@ Go back into your rails console and do a count on users and products, you should
     $ rails console
     Loading development environment (Rails 3.2.6)
     > User.count
-    => 10000
+    => 101 # your number might be different
     > Product.count
-    => 10000
+    => 254 # your number might be different
 
 Your numbers might be different but it should be more than 1.
 
@@ -158,9 +159,8 @@ Add this to the top of the `index.html.erb` file:
 
     <h2>Hello World</h2>
 
-When you refresh your page you should see something like:
+When you refresh your page you should see the new text:
 
-![2-1-hello-world.png](app/assets/images/screenshots/2-1-hello-world.png)
 
 If you don't go back and follow the prior steps.
 
@@ -192,7 +192,7 @@ All together the log looks like this:
 
 There is alot of information in a tiny package. When things go wrong in your app you can use the log output to verify your assumptions are correct, and to get error messages.
 
-Homework:
+#### Homework:
 
 Visit a [localhost:3000/users](http://localhost:3000/users) and then find the log entry. Then open up the readme.md you coppied onto your local machine and fill out this information:
 
@@ -252,7 +252,9 @@ Since we have a relationship between our products and our user we can show the o
 Check your logs again, did the SQL change? Are there any new statements, why?
 
 
-Homework: We've pulled data out of our database and into our rails view, pretty sweet. But the product from `Product.first` isn't very interesting. Make a new ERB tag and in it make a different type of query, storing the value to a variable. `<%= product = Product.where(:name => 'rails book').first %>` or `<%= cheap_product = Product.where('price < 5').first %>`.
+#### Homework:
+
+We've pulled data out of our database and into our rails view, pretty sweet. But the product from `Product.first` isn't very interesting. Make a new ERB tag and in it make a different type of query, storing the value to a variable. `<%= product = Product.where(:name => 'rails book').first %>` or `<%= cheap_product = Product.where('price < 5').first %>`.
 
 Then output the name of the product, it's price and the name of the owner of the product. After each take a look a the log and see if there are new SQL statements listed.
 
@@ -366,7 +368,7 @@ You can also see that our database was a little smarter, instead of n+1 queries 
 
 You don't always want to use `includes()` when using active record, but it is one tool in your toolbox for getting a faster page load, just check the logs for the tell tell sign of an n+1 problem if you see a ton of SQL queries getting spammed on each and every page refresh. Using `includes()` when you don't have this problem will actually slow down your page.
 
-Homework:
+#### Homework:
 
 Commit your results to git
 
