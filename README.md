@@ -153,7 +153,7 @@ Your numbers might be different but it should be more than 1.
 
 # 2) Modify Views and Logging
 
-Now that we have a bunch of users and associated products lets do something useful with them. Previously we noted that [localhost:3000/products](http://localhost:3000/products) was linked to the view `app/views/products/index.html.erb` through a route in our `config/routes.rb` file. Open the `index.html.erb` view now in a text editor (i recommend sublime text 2 for mac). Make sure your rails server is started (`$ rails server`) and visit [localhost:3000/products](http://localhost:3000/products) in your browser.
+Now that we have a bunch of users and associated products, lets do something useful with them. Previously we noted that [localhost:3000/products](http://localhost:3000/products) was linked to the view `app/views/products/index.html.erb` through a route in our `config/routes.rb` file. Open the `index.html.erb` view now in a text editor (i recommend sublime text 2 for mac). Make sure your rails server is started (`$ rails server`) and visit [localhost:3000/products](http://localhost:3000/products) in your browser.
 
 Add this to the top of the `index.html.erb` file:
 
@@ -162,7 +162,7 @@ Add this to the top of the `index.html.erb` file:
 When you refresh your page you should see the new text:
 
 
-If you don't go back and follow the prior steps.
+If you don't, go back and follow the prior steps.
 
 If you look in your rails server log (this is the code that gets spewed from terminal after you run `$ rails server`), you should be able to see a line in there that looks like this
 
@@ -171,15 +171,15 @@ If you look in your rails server log (this is the code that gets spewed from ter
 
 (Note: we are using the `quiet_assets` gem, if you do this on another project your output will still have the same info, but it will also have a bunch of useless output for debugging as well.)
 
-This is telling us that we are using a GET request on the url `/products` url, and since our routes have that mapped to `Products#index` in our routes.rb file our server log will tell us that combination of HTTP action and URL that we are looking at is located in the products controller and index action:
+This is telling us that we are using a GET request on the `/products` url, and since our routes have that mapped to `products#index` in our routes.rb file, our server log will tell us that combination of HTTP action and URL that we are looking at is located in the products controller and index action:
 
     Processing by ProductsController#index as HTML
 
-Finally it will tell us that the view it rendered is coming from `products/index.html.erb` and that is is using the `laouts/application` file.
+Finally it will tell us that the view it rendered is coming from `products/index.html.erb` and that is is using the `layouts/application` file.
 
       Rendered products/index.html.erb within layouts/application (0.2ms)
 
-We also learn that the request was a 200 response which is how computers say everything was good. If it was not a good response we might see a `404` or `500` reponse. On redirects we can expect a `301` or `302` response.
+We also learn that the request was a 200 response which is how computers say everything was good. If it was not a good response we might see a `404` or `500` response. On redirects we can expect a `301` or `302` response.
 
     Completed 200 OK in 7ms (Views: 6.7ms | ActiveRecord: 0.0ms)
 
@@ -190,25 +190,28 @@ All together the log looks like this:
       Rendered products/index.html.erb within layouts/application (0.2ms)
     Completed 200 OK in 7ms (Views: 6.7ms | ActiveRecord: 0.0ms)
 
-There is alot of information in a tiny package. When things go wrong in your app you can use the log output to verify your assumptions are correct, and to get error messages.
+There is a lot of information in a tiny package. When things go wrong in your app, you can use the log output to verify your assumptions are correct and to get error messages.
 
 #### Homework:
 
-Visit a [localhost:3000/users](http://localhost:3000/users) and then find the log entry. Then open up the readme.md you coppied onto your local machine and fill out this information:
+Visit this url: [localhost:3000/users](http://localhost:3000/users) and then find the log entry. Then open up the readme.md you copied onto your local machine and fill out this information:
 
 
-HTTP verb used in this request:
-URL:
-Controller Name:
-Controller Action:
-View File Name:
-Layout File Name:
-Response code of the request:
+HTTP verb used in this request: Get
+URL: /users
+Controller Name: UsersController
+Controller Action: index
+View File Name: users/index.html.erb 
+Layout File Name: layouts/application
+Response code of the request: 200
 
 You should also notice a new line or two that we didn't see before, what is it (copy and paste, hint: after User Load) ?
 
+User Load (0.5ms)  SELECT "users".* FROM "users" 
+
 Why do you think this line is there?
 
+It's the sql code to query the database
 
 
 Save and commit your answers.
