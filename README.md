@@ -93,7 +93,7 @@ Cool, now we can store that user to a variable to use later:
 
 If you look in the user model `apps/models/user.rb` you will see that users have_many :products, and in `apps/models/product.rb` that products :belong_to user. In this imaginary scenario pretend each user is a vendor at some kind of market and is using this application to keep inventory. If you take a look at the product table by running:
 
-    > puts Product
+    > Product
     => Product(id: integer, user_id: integer, name: string, price: integer, created_at: datetime, updated_at: datetime)
 
 You will see that each product contains a foreign key called `user_id` lets add a product to our user. Using the existing variable from previously we can see all of our user's products:
@@ -257,7 +257,7 @@ Check your logs again, did the SQL change? Are there any new statements, why?
 
 #### Homework:
 
-We've pulled data out of our database and into our rails view, pretty sweet. But the product from `Product.first` isn't very interesting. Make a new ERB tag and in it make a different type of query, storing the value to a variable. `<%= product = Product.where(:name => 'rails book').first %>` or `<%= cheap_product = Product.where('price < 5').first %>`.
+We've pulled data out of our database and into our rails view, pretty sweet. But the product from `Product.first` isn't very interesting. Make a new ERB tag and in it make a different type of query, storing the value to a variable. `<%= product = Product.where(:name => 'rails book').first %>` or `<%= cheap_product = Product.where('price > 1').first %>`.
 
 Then output the name of the product, it's price and the name of the owner of the product. After each take a look a the log and see if there are new SQL statements listed.
 
@@ -427,7 +427,7 @@ The output is a bit cryptic, but lets dig into the first line in my output.
 
      products GET    /products(.:format)       products#index
 
-The first element `products` refers to a url helper that we can use in our views. Rather than having to type '/products' directly into our view we could use `products_path` that might seem silly now, but later it will be nice.
+The first element `products` refers to a url helper that we can use in our views. Rather than having to type '/products' directly into our view we could use `products_path` that might seem silly now, but we won't see the benefit from this till later.
 
 The next element `GET` refers to the HTTP verb that the url is accessible at.
 
