@@ -354,7 +354,7 @@ We can use a construct in ActiveRecord called `includes` that eagerly loads all 
 
 With this line:
 
-    <% lots_of_products = Product.includes(:user)all %>
+    <% lots_of_products = Product.includes(:user).all %>
 
 Reload the page and wow, my load time dropped by half
 
