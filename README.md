@@ -257,7 +257,7 @@ Check your logs again, did the SQL change? Are there any new statements, why?
 
 #### Homework:
 
-We've pulled data out of our database and into our rails view, pretty sweet. But the product from `Product.first` isn't very interesting. Make a new ERB tag and in it make a different type of query, storing the value to a variable. `<%= product = Product.where(:name => 'rails book').first %>` or `<%= cheap_product = Product.where('price > 1').first %>`.
+We've pulled data out of our database and into our rails view, pretty sweet. But the product from `Product.first` isn't very interesting. Make a new ERB tag and in it make a different type of query, storing the value to a variable. `<% product = Product.where(:name => 'rails book').first %>` or `<% cheap_product = Product.where('price > 1').first %>`.
 
 Then output the name of the product, it's price and the name of the owner of the product. After each take a look a the log and see if there are new SQL statements listed.
 
@@ -463,7 +463,7 @@ We'll use this quite a bit later on, but for now it's just a fun demo.
 
 Homework:
 
-Remove all the references to `params` from your layout, change your `link_to` erb tags to use the propper rails helpers. I.E. replace this:
+Remove all the references to `params` from your layout, change your `link_to` ERB tags to use the proper rails helpers. I.E. replace this:
 
     <%= link_to "User List", "/users" %>
 
