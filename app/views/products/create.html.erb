@@ -1,21 +1,5 @@
 <h2>Create View</h2>
 
-<%= params[:product].inspect %>
+<h2>Product Created Successfully<h2>
 
-
-
-<% product = Product.new(params[:product]) %>
-<%= product.save %>
-<%= product.inspect  %>
-
-<br />
-<% product.errors.inspect %>
-
-<% if product.save %>
-  <h2> Congrats You Created a New Product</h2>
-  Your product looks like <%= product.inspect %>
-<% else %>
-  <h2>Your product was not saved!! </h2>
-  <%= product.errors.full_messages %>
-  Please go back in your browser and fix the problem
-<% end %>
+<%= @product.name %> added to the website, it costs: $<%= @product.price %>

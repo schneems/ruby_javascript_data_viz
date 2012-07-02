@@ -154,7 +154,7 @@ Like "Sneakers" for $40. You should see the success message we left in create.ht
 If you got an error, try to use the error messages to debug the problem.
 
 
-Go ahead and go back to [http://localhost:3000/products/new](http://localhost:3000/products/new). Enter in the name of a product that already exists, like "sneakers" and submit. You should be sent back to the form where we entered in the name and price for our product. This is because if `@product.save` does not return true in our controller we render the `new` action which has the form for our product. This is much more useful than simply saying the product didn't save like we did before, but we're leaving our user in the dark. Right now they don't know if that worked or not, and they don't know which fields didn't validate correctly. Even worse they lost everything they typed in to the form. This is a bad user experience for sure. Lets update this form to use Rails form helpers and give our users a useability boost in the next section.
+Go ahead and go back to [http://localhost:3000/products/new](http://localhost:3000/products/new). Enter in the name of a product that already exists, like "sneakers" and submit. You should be sent back to the form where we entered in the name and price for our product. This is because if `@product.save` does not return true in our controller we render the `new` action which has the form for our product. This is much more useful than simply saying the product didn't save like we did before, but we're leaving our user in the dark. Right now they don't know if that worked or not, and they don't know which fields didn't validate correctly. Even worse they lost everything they typed in to the form. This is a bad user experience for sure. Lets update this form to use Rails form helpers and give our users a usability boost in the next section.
 
 Save and commit the results to GIT.
 
@@ -379,7 +379,7 @@ First we will be making an edit view. The edit view is what you see before you u
 
     <%= link_to 'Back', products_path %>
 
-Here we are rendering the same `_form` partial we used in the new view. Tu use this properly we need a `@product` instance variable populated via the controller. Unlike the `new` action, we want to edit a specific product. So we will have to look up that product from the database. Open up `app/views/controllers/products_controller.rb` and add an edit action:
+Here we are rendering the same `_form` partial we used in the new view. To use this properly we need a `@product` instance variable populated via the controller. Unlike the `new` action, we want to edit a specific product. So we will have to look up that product from the database. Open up `app/views/controllers/products_controller.rb` and add an edit action:
 
 
     def edit
@@ -437,7 +437,7 @@ this is a tool to pass on one time messages to the users of your application. To
       <p class="flash-notice"><%= flash[:notice] %></p>
     <% end %>
 
-Inside of our controller we can have other types of flash messages by using the `flash` object. For instance you might set `flash[:error] = 'Please try again'` in the controller but you would still need to add the view logic to your layout. Flash messages are nice for a lightweight application but shouldn't be relied on too much. Also note that this type of inline :notice can only be used with redirects for now.
+Inside of our controller we can have other types of flash messages by using the `flash` object. For instance, you might set `flash[:error] = 'Please try again'` in the controller but you would still need to add the view logic to your layout. Flash messages are nice for a lightweight application but shouldn't be relied on too much. Also note that this type of inline :notice can only be used with redirects for now.
 
 
 Go back to [http://localhost:3000/products/1/edit](http://localhost:3000/products/1/edit) change the price and then hit enter. You should end up on the Products#show page with the extra flash message of "Product was successfully updated.".
@@ -464,7 +464,7 @@ Like we saw with the `redirect_to @product`, `link_to` understands that if you a
 
 In addition to specifying the method, we're also telling our link_to to show the user a confirmation popup to ensure that they didn't click the destroy button by accident.
 
-Go ahead and navigate to a product page like [http://localhost:3000/products/23](http://localhost:3000/products/23) and click the destroy link. You should be redirected to the products index page. To verify that product no longer exists you can go to the same url [http://localhost:3000/products/23](http://localhost:3000/products/23) and you should get an error since it no longer exists.
+Go ahead and navigate to a product page like [http://localhost:3000/products/23](http://localhost:3000/products/23) and click the destroy link. You should be redirected to the products index page. To verify that product no longer exists, you can go to the same url [http://localhost:3000/products/23](http://localhost:3000/products/23) and you should get an error since it no longer exists.
 
 
 Save and commit the results to GIT.
