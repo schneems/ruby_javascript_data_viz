@@ -1,23 +1,24 @@
 <h2> Products in the market </h2>
 
 <table>
-<tr>
-<th>ID</th>
-<th>Item</th>
-<th>Cost</th>
-<th>Seller</th>
-</tr>
-	
-  		<% @products.each do |product| %>
-  		<tr>
-		<td><%= product.id %> &nbsp; </td>
-       	<td><%= product.name %> &nbsp; </td>
-       	<td>$<%= product.price %> &nbsp; </td>
-       	<td><%= product.user.name if product.user.present? %> &nbsp; </td>
-		</tr>
-     	<% end %>
- 	
-    </table>
+  <tbody>
+    <tr>
+      <th>ID</th>
+      <th>Item</th>
+      <th>Cost</th>
+      <th>Seller</th>
+    </tr>
+
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+      	<td><%= product.name %></td>
+      	<td>$<%= product.price %></td>
+      	<td><%= product.user.name if product.user.present? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
    
    
