@@ -246,7 +246,7 @@ We are telling the document object that when it is ready, call the function that
 
 Wow that was a lot of explanation for a very little bit of code. The reason I want to talk about it here, is that javascript uses callbacks heavily. This type of programming can be refered to as event based programming, since we are waiting for an event (the document is ready) before we run our code.
 
-Callbacks especially can be tricky, so lets take a look at another real world example. Let's say you are looking for a new job and you go into an interview. You give them your phone number so that when they make a decision they can call you and you can celebrate if you got the job, or be sad if you didn't. The alternative if that callback mechanism didn't exist would be to call the company every few minutes to see if they made a decision. This would render you incapable of doing anything else, and your life would be rendered useless until they make a decision. This type of behavior is referred to as polling, since you are polling the company to ask if they have made a decision. Callbacks in code work in a similar way.
+Callbacks especially can be tricky, so lets take a look at another real world example. Let's say you are looking for a new job and you go into an interview. You give them your phone number so that when they make a decision they can call you and you can celebrate if you got the job, or be sad if you didn't. The alternative if that callback mechanism didn't exist would be to call the company every few minutes to see if they made a decision. This would render you incapable of doing anything else, and your life would be rendered useless until they make a decision. This type of behavior is referred to as polling, since you are polling the company to ask if they have made a decision. Callbacks in code work in a similar way. Here instead of waiting for a decision from our interview we are waiting for a programming defined event called document ready. We'll store the function to be called later and when that event fires it will trigger our function. We can also refer to this behavior as non-blocking, since it does not stop, or block, the execution of the program while waiting for the event.
 
 
 ## 2)  javascript and ERB
@@ -320,12 +320,11 @@ Here we are adding a blank `div` element and giving it an inline style and setti
             ]
         }]
       });
-    });
     </script>
 
 
 
-Refresh your page [http://localhost:3000/products](http://localhost:3000/products) and you should see a pretty sweet pie chart. If you don't check your javascript console to see if there are any errors. Like we did before we're going to want to wrap this in a `$(document).read()` call so it doesn't matter where on the page we put our javascript. Add those lines at the top and the bottom of your javascript code:
+Refresh your page [http://localhost:3000/products](http://localhost:3000/products) and you should see a pretty sweet pie chart. If you don't check your javascript console to see if there are any errors. Double check the ID on your div matches the `renderTo` in your chart. Like we did before we're going to want to wrap this in a `$(document).read()` call so it doesn't matter where on the page we put our javascript. Add those lines at the top and the bottom of your javascript code:
 
 
 
@@ -354,7 +353,7 @@ Now we can use the keys on the left as methods on our object `foo`
     > foo.plotBackgroundColor
     => null
 
-Some things to note that are different from ruby here, javascript uses `null` instead of `nil`, the hashrocket (`=>` notation will not work in javascript. Finally method names are cammel case, which means that rather than seperating method names with underscores like `render_to` we seperate them by changing the case of our variables like `renderTo`. This mostly stems from javascripts attempts to minimize size. You can name your variables anything you want, but seasoned javascript devs will appreciate it if you use camel case.
+Some things to note that are different from ruby here, javascript uses `null` instead of `nil` and the hashrocket (`=>`) notation will not work in javascript. Finally method names are camel case, which means that rather than separating method names with underscores like `render_to` we separate them by changing the case of our variables like `renderTo`. This mostly stems from javascript's attempts to minimize size. You can name your variables anything you want, but seasoned javascript devs will appreciate it if you use camel case.
 
 There are a number of options that can be configured, you can see them if you go to [http://www.highcharts.com/demo/pie-basic](http://www.highcharts.com/demo/pie-basic) you can see a demo, you can visit the documentation to see all of the different options available at the [Highcharts reference](http://www.highcharts.com/ref/). You can even experiment with options in your browser by viewing the charts in [jsFiddle](http://jsfiddle.net/gh/get/jquery/1.7.2/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/pie-basic/).
 
@@ -452,7 +451,7 @@ Let's put this into our javascript, replace your javascript with this code:
                       end
                   %>
             }]
-          });
+        });
     });
     </script>
 
@@ -578,7 +577,7 @@ to this:
     <td data-product='<%= product.id %>'>$<%= product.price %></td>
 
 
-We're tagging our price with the current product id so we can target it with javascript later. Next change your the link that we added to increment the price to this:
+We're tagging our price with the current product id so we can target it with javascript later. Next change your link that we added to increment the price to this:
 
         <td><%= link_to "+", product_path(product), 
                 'data-incr-price' => product.id,  
