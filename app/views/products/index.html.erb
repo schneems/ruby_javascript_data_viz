@@ -67,7 +67,7 @@
     });
 </script>
    
-	<%=
+	<%
     @products.map do |product|
       [product.name, product.price/@sum_price]
     end
