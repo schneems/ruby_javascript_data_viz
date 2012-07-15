@@ -26,7 +26,13 @@
 </script>
 
  
- 
+<a href="#" data-hide-element='chart'>Chart</a>
+<script type='text/javascript'>
+  $('[data-hide-element=chart]').on('click', function(){
+      $('#highChartContainer').toggle()
+    });
+</script>
+
 <script type='text/javascript'>
   $(document).ready(function(){
         chart = new Highcharts.Chart({
