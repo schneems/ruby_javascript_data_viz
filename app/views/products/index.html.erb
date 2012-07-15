@@ -1,12 +1,5 @@
- <script type='text/javascript'>
- $(document).ready(function(){
-  $('table').hide();
-});
-</script>
- 
-
 <h2> Products in the market </h2>
-
+<div id="highChartContainer" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <table>
   <tbody>
     <tr>
@@ -27,10 +20,35 @@
   </tbody>
 </table>
 
-  <script type='text/javascript'>
-  console.log('hello world');
 </script>
-	
+	<script type='text/javascript'>
+  console.log('the number of products is ' + '<%= @products.count %>');
+</script>
+
  
-
-
+ 
+<script type='text/javascript'>
+  $(document).ready(function(){
+        chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'highChartContainer',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Browser market shares at a specific website, 2010'
+        },
+        series: [{
+            type: 'pie',
+            name: 'Product Share',
+            data:
+              <%=
+                 @products.map do |product|
+  [product.name, product.price/@sum_price]
+end.to_json.html_safe
+              %>
+        }]
+    });
+});
+</script>
