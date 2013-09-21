@@ -1,7 +1,6 @@
 ControllerExercise::Application.routes.draw do
 
-
- resources :products
+  resources :products
 
   resources :users
 
