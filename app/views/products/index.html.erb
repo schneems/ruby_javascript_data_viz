@@ -1,3 +1,7 @@
+<div id="highChartContainer" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+<a href="#" data-hide-element='chart'>Chart</a>
+
 <h2> Products in the market </h2>
 
 <table>
@@ -13,16 +17,68 @@
       <tr>
         <td><%= product.id %></td>
       	<td><%= product.name %></td>
-      	<td>$<%= product.price %></td>
+      	<td data-product='<%= product.id %>'>$<%= product.price %></td>
       	<td><%= product.user.name if product.user.present? %></td>
+         <td><%= link_to "+", product_path(product),
+            'data-price'      => product.price,
+            'data-incr-price' => product.id,
+            :method           => :put %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-   
-   
-	
- 
+<%=
+    @products.map do |product|
+      [product.name, product.price/@sum_price]
+    end
+%>
+
+
+<script type='text/javascript'>
+  $(document).ready(function(){
+        chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'highChartContainer',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Product Shares'
+        },
+        series: [{
+            type: 'pie',
+            name: 'Product Share',
+            data:
+              <%=
+                  @products.map do |product|
+                    [product.name, product.price/@sum_price]
+                  end.to_json.html_safe
+              %>
+        }]
+    });
+  });
+  $('[data-hide-element=chart]').on('click', function(){
+    $('#highChartContainer').toggle()
+  });
+  $('[data-incr-price]').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    url = $(this).attr('href')
+    price = $(this).attr('data-price');
+    newPrice = parseInt(price) + 1;
+
+    $.ajax({ url: url,
+             type: 'put',
+             dataType: 'json',
+             data: { product: {price: newPrice} }
+           }).success(function(data, textStatus, jqXHR) {
+              $('[data-product='+ data.id +']').html("$" + data.price);
+              $('[data-incr-price='+ data.id +']').attr('data-price', data.price);
+        });
+  });
+</script>
 
 
