@@ -85,7 +85,7 @@ You can even see the code behind jquery by visiting [http://localhost:3000/asset
 
 Now that we've seen that jQuery is successfully loaded, lets manipulate the DOM a bit.
 
-jQuery takes css style selctors, that means we can target id's using `#` classes using `.` and elements by using them directly. To target all link's on the page we can use this selector:
+jQuery takes css style selectors, that means we can target id's using `#` classes using `.` and elements by using them directly. To target all link's on the page we can use this selector:
 
     > $('a')
 
