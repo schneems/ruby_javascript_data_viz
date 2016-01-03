@@ -81,7 +81,7 @@ If you get a SyntaxError, that means that jQuery is not loaded. If you view sour
 
       <script src="/assets/jquery.js?body=1" type="text/javascript"></script>
 
-You can even see the code behind jquery by visiting [http://localhost:3000/assets/jquery.js](http://localhost:3000/assets/jquery.js). For now it's not important to know how jQuery works, but you need to understand that it is a library written in javascript that can be loaded into a web page. It is also important thtat you understand how to check for the presence of jQuery.
+You can even see the code behind jquery by visiting [http://localhost:3000/assets/jquery.js](http://localhost:3000/assets/jquery.js). For now it's not important to know how jQuery works, but you need to understand that it is a library written in javascript that can be loaded into a web page. It is also important that you understand how to check for the presence of jQuery.
 
 Now that we've seen that jQuery is successfully loaded, lets manipulate the DOM a bit.
 
@@ -95,7 +95,7 @@ The output of this in the console should be an array of links similar to:
 
 Now that you have references to these elements you can manipulate them using jQueries available manipulators [http://api.jquery.com/category/manipulation/](http://api.jquery.com/category/manipulation/) and effects [http://api.jquery.com/category/effects/](http://api.jquery.com/category/effects/).
 
-As i'm working with jQuery, I often want to make sure I am targeting the right elements. To help with that end, I like using `hide()` and `show()`. Note that javascript functions require parenthesis even if there are no arguements unlike ruby. Let's make sure we've got the links we're looking for:
+As I'm working with jQuery, I often want to make sure I am targeting the right elements. To help with that end, I like using `hide()` and `show()`. Note that javascript functions require parenthesis even if there are no arguments unlike ruby. Let's make sure we've got the links we're looking for:
 
     > $('a').hide();
 
@@ -125,7 +125,7 @@ We can get the parent by calling `parent()` let's give this a shot:
 
     > $('td').first().parent().toggle();
 
-What happened when you hit enter? The table didn't dissapear, but why? If you inspect the html (right click >> inspect, or click on the "elements" tab in the inspector) you can see that the table cells `td` are inside of table rows `tr`
+What happened when you hit enter? The table didn't disappear, but why? If you inspect the html (right click >> inspect, or click on the "elements" tab in the inspector) you can see that the table cells `td` are inside of table rows `tr`
 
 
     <tr>
@@ -154,7 +154,7 @@ We got a reference to `<td>1</td>` then got it's parent `<tr>`, now we want `<ta
 
     > $('td').first().parent().parent().parent().toggle();
 
-And now our table is gone! Run the command again to bring it back. This isn't the only way to make the table dissapear, but it is one way to show how we can walk up the dom tree. If we wanted we could reference it directly:
+And now our table is gone! Run the command again to bring it back. This isn't the only way to make the table disappear, but it is one way to show how we can walk up the dom tree. If we wanted we could reference it directly:
 
     > $('table').toggle();
 
@@ -172,7 +172,7 @@ Now that you've played around with jQuery, let's put some in our code, We can em
       alert('hello world');
     </script>
 
-Open up [http://localhost:3000/products](http://localhost:3000/products) to refresh the page, you should be greated by a nice pop up. Make sure your javacript console is open and change the alert to `console.log('hello world');` like this:
+Open up [http://localhost:3000/products](http://localhost:3000/products) to refresh the page, you should be greated by a nice pop up. Make sure your javascript console is open and change the alert to `console.log('hello world');` like this:
 
     <script type='text/javascript'>
       console.log('hello world');
@@ -244,7 +244,7 @@ So when we put it all together:
 
 We are telling the document object that when it is ready, call the function that has the code `$('table').hide();`.
 
-Wow that was a lot of explanation for a very little bit of code. The reason I want to talk about it here, is that javascript uses callbacks heavily. This type of programming can be refered to as event based programming, since we are waiting for an event (the document is ready) before we run our code.
+Wow that was a lot of explanation for a very little bit of code. The reason I want to talk about it here, is that javascript uses callbacks heavily. This type of programming can be referred to as event based programming, since we are waiting for an event (the document is ready) before we run our code.
 
 Callbacks especially can be tricky, so lets take a look at another real world example. Let's say you are looking for a new job and you go into an interview. You give them your phone number so that when they make a decision they can call you and you can celebrate if you got the job, or be sad if you didn't. The alternative if that callback mechanism didn't exist would be to call the company every few minutes to see if they made a decision. This would render you incapable of doing anything else, and your life would be rendered useless until they make a decision. This type of behavior is referred to as polling, since you are polling the company to ask if they have made a decision. Callbacks in code work in a similar way. Here instead of waiting for a decision from our interview we are waiting for a programming defined event called document ready. We'll store the function to be called later and when that event fires it will trigger our function. We can also refer to this behavior as non-blocking, since it does not stop, or block, the execution of the program while waiting for the event.
 
@@ -268,19 +268,19 @@ Your number might be different but the important part is that number of products
       console.log('the number of products is ' + '231');
     </script>
 
-Hopefully you can start to see how ERB and javascript can interact. Lets add a charting library to our project. There are many different javascript charting libraries. One of my favorites is [High Charts](http://www.highcharts.com/) which is free to use for non comercial use, and pretty cheap for commercial projects. Another popular library is (D3)[http://d3js.org/], D3 is open source and completely free to use. There are also a number of libraries built on top of D3 like [LiesDamnedLies](https://github.com/Induction/LiesDamnedLies). For this project we will be using High Charts. First go to [http://www.highcharts.com/](http://www.highcharts.com/) and then download the Highcharts (version 2.2.5 at the time of this writing) http://www.highcharts.com/download.
+Hopefully you can start to see how ERB and javascript can interact. Lets add a charting library to our project. There are many different javascript charting libraries. One of my favorites is [High Charts](http://www.highcharts.com/) which is free to use for non commercial use, and pretty cheap for commercial projects. Another popular library is (D3)[http://d3js.org/], D3 is open source and completely free to use. There are also a number of libraries built on top of D3 like [LiesDamnedLies](https://github.com/Induction/LiesDamnedLies). For this project we will be using High Charts. First go to [http://www.highcharts.com/](http://www.highcharts.com/) and then download the Highcharts (version 2.2.5 at the time of this writing) http://www.highcharts.com/download.
 
-Once the file is done downloading, unzip it and open the folder. THere should be an `index.htm` file. Open this in a web browser such as chrome. This is a static HTML file that contains links to all of the examples that come with the library. If you are having problems implementing a chart it can be very useful to see a simple working example. Take a look at the file and view several examples. When you're done open up the `js` folder where we have access to all of the javascript files.
+Once the file is done downloading, unzip it and open the folder. There should be an `index.htm` file. Open this in a web browser such as chrome. This is a static HTML file that contains links to all of the examples that come with the library. If you are having problems implementing a chart it can be very useful to see a simple working example. Take a look at the file and view several examples. When you're done open up the `js` folder where we have access to all of the javascript files.
 
-Here we have access to several folders and files. We will be focusing on `highcharts.src.js`. This contains the same code as `highcharts.js` but `highcharts.js` is minified. Since javascript is run in the browser the entire source code must be sent each time a page is loaded, because of this larger javascript files can slow down page loads. To combat this we can run javascript through a minifier like [YUI compressor](http://developer.yahoo.com/yui/compressor/). A minifier removes all whitespace (spaces and new lines) and will rename internal variables to shorter versions, for example it my rename `mobileShowDidDisplay` to `m`. This might seem pedantic, but there are signifigant size savings while minifying javascript.
+Here we have access to several folders and files. We will be focusing on `highcharts.src.js`. This contains the same code as `highcharts.js` but `highcharts.js` is minified. Since javascript is run in the browser the entire source code must be sent each time a page is loaded, because of this larger javascript files can slow down page loads. To combat this we can run javascript through a minifier like [YUI compressor](http://developer.yahoo.com/yui/compressor/). A minifier removes all whitespace (spaces and new lines) and will rename internal variables to shorter versions, for example it my rename `mobileShowDidDisplay` to `m`. This might seem pedantic, but there are significant size savings while minifying javascript.
 
-Since we're using Rails (above 3.1) we have acces to the asset pipeline which helps to minimize javascript for us. Because of this we can use the full source in developement, and serve the minified version in production. Copy the `highcharts.src.js` file and paste it into the `app/assets/javascripts/` directory in your rails project.
+Since we're using Rails (above 3.1) we have access to the asset pipeline which helps to minimize javascript for us. Because of this we can use the full source in development, and serve the minified version in production. Copy the `highcharts.src.js` file and paste it into the `app/assets/javascripts/` directory in your rails project.
 
 Visit http://localhost:3000/products in your browser and inspect the source, you should see this in your HTML:
 
     <script src="/assets/highcharts.src.js?body=1" type="text/javascript"></script>
 
-If you don't then you might not have put the highcharts file in the correct place. When we deploy to production, all the javascipt files will be minified and put into one file (application.js). This is because the asset pipeline in rails will compile the `app/assets/javascripts/application.js` and it contains this line
+If you don't then you might not have put the highcharts file in the correct place. When we deploy to production, all the javascript files will be minified and put into one file (application.js). This is because the asset pipeline in rails will compile the `app/assets/javascripts/application.js` and it contains this line
 
 
     //= require_tree .
@@ -324,7 +324,7 @@ Here we are adding a blank `div` element and giving it an inline style and setti
 
 
 
-Refresh your page [http://localhost:3000/products](http://localhost:3000/products) and you should see a pretty sweet pie chart. If you don't check your javascript console to see if there are any errors. Double check the ID on your div matches the `renderTo` in your chart. Like we did before we're going to want to wrap this in a `$(document).read()` call so it doesn't matter where on the page we put our javascript. Add those lines at the top and the bottom of your javascript code:
+Refresh your page [http://localhost:3000/products](http://localhost:3000/products) and you should see a pretty sweet pie chart. If you don't check your javascript console to see if there are any errors. Double check the ID on your div matches the `renderTo` in your chart. Like we did before we're going to want to wrap this in a `$(document).ready()` call so it doesn't matter where on the page we put our javascript. Add those lines at the top and the bottom of your javascript code:
 
 
 
@@ -383,7 +383,7 @@ We'll need an array of arrays with our product prices and names populated from r
       end
     => [["GPS Output Case", 0.0023375604217626875], ["HD Component", 0.0036399155138876135]...]
 
-Okay, lets look at what we just did, we got all of our products and the sum of our product prices using SQL through active record. Then we used an iterator to build an array of arrays. The first entry is `product.name` and the last is the product's price divided by the total price `product.price/total.to_f`. You may be qondering why we call `total.to_f` ? This is because product.price is an integer and total is also an integer, when you divide an integer by an integer you will get an integer as a result go ahead an run:
+Okay, lets look at what we just did, we got all of our products and the sum of our product prices using SQL through active record. Then we used an iterator to build an array of arrays. The first entry is `product.name` and the last is the product's price divided by the total price `product.price/total.to_f`. You may be wondering why we call `total.to_f` ? This is because product.price is an integer and total is also an integer, when you divide an integer by an integer you will get an integer as a result go ahead an run:
 
     > 1/1
     => 1
@@ -403,7 +403,7 @@ That's much better, we can also add a decimal to one of the digits to get the sa
     > 1/2.0
     => 0.5
 
-If you get strange results durring division in ruby check to make sure one of your digits is a float.
+If you get strange results during division in ruby check to make sure one of your digits is a float.
 
 Alright, we've got our array of arrays but we've got to put it into our javascript through ERB.
 
@@ -422,7 +422,7 @@ Then in your index.html.erb view put this outside of the JS tags:
     %>
 
 
-When you refresh your products page you should see an array of arays of product names and prices
+When you refresh your products page you should see an array of arrays of product names and prices
 
   [["GPS Output Case", 0.0023375604217626875], ["HD Component", 0.0036399155138876135]...]
 
@@ -489,7 +489,7 @@ Javascript is a very powerful front end tool and can help make our web site more
 
 ## 3) Manipulating View with jQuery
 
-We've played around with the DOM through jQuery but we haven't done anything serisous. We've got a bunch of information on this page, but it is hard to see all of it at the same time. We're going to build some javascript powered links that hide our chart or data depending on what button we press.
+We've played around with the DOM through jQuery but we haven't done anything serious. We've got a bunch of information on this page, but it is hard to see all of it at the same time. We're going to build some javascript powered links that hide our chart or data depending on what button we press.
 
 We can embed javascript directly into a link by adding `javascript:` into the href like this:
 
@@ -507,13 +507,13 @@ Note that we put a hash `#` into the href of the link, without it the browser do
     <a href="javascript:void(0)" onclick="$('#highChartContainer').toggle()">Chart</a>
 
 
-So you can put your javascript in the `href` using `javascript:` or you can put it in an onclick handler. Though much like using inline styles, putting inline scripts is typically avoided when possible. It is considered better practice to seperate the link and the javascript, we can use id's, classes, or data attributes to mark our tags and then use jquery's powerful selector syntax to add javascript ability to them.
+So you can put your javascript in the `href` using `javascript:` or you can put it in an onclick handler. Though much like using inline styles, putting inline scripts is typically avoided when possible. It is considered better practice to separate the link and the javascript, we can use id's, classes, or data attributes to mark our tags and then use jquery's powerful selector syntax to add javascript ability to them.
 
 First add a link:
 
     <a href="#">Chart</a>
 
-Now we ned to give it an attribute so that jquery can find this one specific link, if we chose an ID we can only have one link that closes the charts on the page, since id's should be unique. Instead let's use a class:
+Now we need to give it an attribute so that jquery can find this one specific link, if we chose an ID we can only have one link that closes the charts on the page, since id's should be unique. Instead let's use a class:
 
     <a href="#" class='closeChart'>Chart</a>
 
@@ -549,15 +549,15 @@ We can select attributes using brackets in jquery `[]` so we can re-write our ja
 Now anyone on your team can edit id's and classes as they please. Your javascript will still work as planned.
 
 
-## 4) Asyncronous Client Side Updates (AJAX)
+## 4) Asynchronous Client Side Updates (AJAX)
 
-By now we've used jquery to manipulate the DOM, and used ruby to render some pretty sweet data visualizaitons. All of this is just manipulating static html, what if we wanted to update some elements on the page from our server dynamically, or send data to our server without a page refresh, how would we do that?
+By now we've used jquery to manipulate the DOM, and used ruby to render some pretty sweet data visualizations. All of this is just manipulating static html, what if we wanted to update some elements on the page from our server dynamically, or send data to our server without a page refresh, how would we do that?
 
-We can send asyncronous requests from javascript to our server, and then manipulate our page with any data we get back. Asyncronous means that we don't have to wait for the request to finish and we don't have to refresh the page. A text message is asyncronous communication, you can send one and forget about the conversation until you get one back. Calling someone on a phone is syncronous communication since you can't go anywhere untill the call is over and you hang up the phone.
+We can send asynchronous requests from javascript to our server, and then manipulate our page with any data we get back. Asynchronous means that we don't have to wait for the request to finish and we don't have to refresh the page. A text message is asynchronous communication, you can send one and forget about the conversation until you get one back. Calling someone on a phone is synchronous communication since you can't go anywhere until the call is over and you hang up the phone.
 
-What type of functionality might we want to make asyncronous? There are plenty of 'upvote' and 'like' buttons on the Internet these days, while we aren't recording votes, our products do have a price. We could add a button that would allow us to update the button's price. 
+What type of functionality might we want to make asynchronous? There are plenty of 'upvote' and 'like' buttons on the Internet these days, while we aren't recording votes, our products do have a price. We could add a button that would allow us to update the button's price. 
 
-First we'll build this functionality in normal synchronous way using page refreshes and links. We'll then re-build it asyncronously using javascript.
+First we'll build this functionality in normal synchronous way using page refreshes and links. We'll then re-build it asynchronously using javascript.
 
 in `app/views/products/index.html.erb` Add this line to your table at the end:
 
@@ -565,7 +565,7 @@ in `app/views/products/index.html.erb` Add this line to your table at the end:
     <td><%= link_to "+", product_path(product, :product => {:price => product.price + 1}), :method => :put %></td>
 
 
-We are build a link to the update action and we are sending the price + 1 so when you click the link it will hit the update action, which will redirect you back to this page. You should see the value go up by one. You can click again and the value will go up again. This happens pretty fast, but there is still a noticible page refresh, let's change this to an asynchronous javascript request.
+We are build a link to the update action and we are sending the price + 1 so when you click the link it will hit the update action, which will redirect you back to this page. You should see the value go up by one. You can click again and the value will go up again. This happens pretty fast, but there is still a noticeable page refresh, let's change this to an asynchronous javascript request.
 
 
 We'll take the same basic pattern, of hitting the update action to update the database, and then updating our view using javascript. To do this change this line:
@@ -908,13 +908,13 @@ We're almost done, promise. Do the save, refresh, & click dance. You should see 
     </script>
 
 
-Refresh for the last time and click the link. Now click it again. Did the price go up? Awesome! You're one step closer to asynchronous web domination. There are many ways different ways to accomplish this javascript request we just made, but the thought process should be the same. Click an element, intercept the click event, grab data from our DOM and make an asyncronous request. Make sure your URL, HTTP verb, and dataType are all set. Supply any data you want to, and finally attach some kind of success handler to the result. It seems a bit verbose, and it is...there are some simpler ways to accomplish this flow, but they just hide details from you...they're not actually simpler under the hood.
+Refresh for the last time and click the link. Now click it again. Did the price go up? Awesome! You're one step closer to asynchronous web domination. There are many ways different ways to accomplish this javascript request we just made, but the thought process should be the same. Click an element, intercept the click event, grab data from our DOM and make an asynchronous request. Make sure your URL, HTTP verb, and dataType are all set. Supply any data you want to, and finally attach some kind of success handler to the result. It seems a bit verbose, and it is...there are some simpler ways to accomplish this flow, but they just hide details from you...they're not actually simpler under the hood.
 
 
 
 ## Fin
 
-To wrap it up, we got our hands dirty with jQuery and we got to manipulate the DOM. We played with the javascript console and learned quite a bit about this new strange language. We passed data from Ruby using ERB to javascript to make our chart visualization, and then we used javascript to make asynchronous requests to our Ruby server. THe most important parts of this exercise are understaning the core pieces of technology, and taking a very slow iterative approach to development. When I'm building javascript powered features, I typically build them without the javascript first (if possible), and then enhance them with javascript afterwards. This makes debugging a bit easier and gives you a working prototype while you're still developing the advanced version.
+To wrap it up, we got our hands dirty with jQuery and we got to manipulate the DOM. We played with the javascript console and learned quite a bit about this new strange language. We passed data from Ruby using ERB to javascript to make our chart visualization, and then we used javascript to make asynchronous requests to our Ruby server. The most important parts of this exercise are understanding the core pieces of technology, and taking a very slow iterative approach to development. When I'm building javascript powered features, I typically build them without the javascript first (if possible), and then enhance them with javascript afterwards. This makes debugging a bit easier and gives you a working prototype while you're still developing the advanced version.
 
 
 
