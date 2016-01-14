@@ -1,4 +1,10 @@
+<script type='text/javascript'>
+  console.log('the number of products is ' + '<%= @products.count %>');
+</script>
+
 <h2> Products in the market </h2>
+
+<div id="highChartContainer" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 
 <table>
   <tbody>
@@ -13,16 +19,83 @@
       <tr>
         <td><%= product.id %></td>
       	<td><%= product.name %></td>
-      	<td>$<%= product.price %></td>
+      	<td data-product='<%= product.id %>'>$<%= product.price %></td>
       	<td><%= product.user.name if product.user.present? %></td>
+         <td><%= link_to "+", product_path(product), 
+            'data-price'      => product.price,
+            'data-incr-price' => product.id,  
+            :method           => :put %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<script type='text/javascript'>
+  $('[data-incr-price]').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    url   = $(this).attr('href');
+    price = $(this).attr('data-price');
+    newPrice = parseInt(price) + 1;
+
+    $.ajax({ url:   url, 
+             type: 'put',
+             dataType: 'json',
+             data: { product: {price: newPrice} }
+           }).success(function(data, textStatus, jqXHR) { 
+            $('[data-product='+ data.id +']').html("$" + data.price);
+            $('[data-incr-price='+ data.id +']').attr('data-price', data.price);   
+      });
+    })
+</script>
+
+
+<script type='text/javascript'>
+  $(document).ready(function(){
+    // ... chart code goes here
+    });
+</script>
+
+
+<script type='text/javascript'>
+  $(document).ready(function(){
+        chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'highChartContainer',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Browser market shares at a specific website, 2010'
+        },
+        series: [{
+            type: 'pie',
+            name: 'Product Share',
+            data:
+              <%=
+                  @products.map do |product|
+                    [product.name, product.price/@sum_price]
+                  end.to_json.html_safe
+              %>
+        }]
+    });
+});
+</script>
    
+
+<script type='text/javascript'>
+  $(document).ready(function(){
+    // ... chart code goes here
+    });
+</script>
    
-	
+	<%
+    @products.map do |product|
+      [product.name, product.price/@sum_price]
+    end
+%>
  
 
 

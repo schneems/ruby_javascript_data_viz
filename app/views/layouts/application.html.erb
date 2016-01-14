@@ -9,7 +9,13 @@
 <body>
 
 <%= link_to "a list of users", users_path %>  |  
-<%= link_to "a list of products", products_path %>
+<%= link_to "a list of products", products_path %>  |  
+<a href="#" data-hide-element='chart'>Chart</a>
+<script type='text/javascript'>
+  $('[data-hide-element=chart]').on('click', function(){
+      $('#highChartContainer').toggle()
+    });
+</script>
 
 <% if flash[:notice].present? %>
   <p class="flash-notice"><%= flash[:notice] %></p>
