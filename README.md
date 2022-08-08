@@ -384,7 +384,7 @@ We'll need an array of arrays with our product prices and names populated from r
       end
     => [["GPS Output Case", 0.0023375604217626875], ["HD Component", 0.0036399155138876135]...]
 
-Okay, lets look at what we just did, we got all of our products and the sum of our product prices using SQL through active record. Then we used an iterator to build an array of arrays. The first entry is `product.name` and the last is the product's price divided by the total price `product.price/total.to_f`. You may be qondering why we call `total.to_f` ? This is because product.price is an integer and total is also an integer, when you divide an integer by an integer you will get an integer as a result go ahead an run:
+Okay, lets look at what we just did, we got all of our products and the sum of our product prices using [SQL](https://www.scaler.com/topics/sql/) through active record. Then we used an iterator to build an array of arrays. The first entry is `product.name` and the last is the product's price divided by the total price `product.price/total.to_f`. You may be qondering why we call `total.to_f` ? This is because product.price is an integer and total is also an integer, when you divide an integer by an integer you will get an integer as a result go ahead an run:
 
     > 1/1
     => 1
